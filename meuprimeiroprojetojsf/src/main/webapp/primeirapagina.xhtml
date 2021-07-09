@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Cadastro de usuário</title>
+</h:head>
+
+<h:body>
+	
+	<h:form id="formPessoa">
+	    
+	   <h:panelGrid columns="2"> 
+	     <f:facet name="header">
+	     	<h:outputText value="Cadastro De usuário"/>
+	     </f:facet>
+	     
+	    <h:outputLabel value="Id:"/>
+	    <h:inputText value="#{pessoaBean.pessoa.id}" readonly="true"/>
+	    
+	    <h:outputLabel value="Nome:"/>
+	    <h:inputText value="#{pessoaBean.pessoa.nome}"/>
+	    
+	    <h:outputLabel value="Sobrenome:"/>
+	    <h:inputText value="#{pessoaBean.pessoa.sobrenome}"/>
+	    
+	    <h:outputLabel value="Idade:"/>
+	    <h:inputText value="#{pessoaBean.pessoa.idade}"/>
+	    
+	    <h:outputLabel value="Sexo:"/>
+	    
+	    <h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}" required="false">
+	        <f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true"/>
+	    	<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
+	    	<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
+	    </h:selectOneMenu>
+	    
+	    
+	     <h:outputLabel value="Frameworks:"/>
+	     <h:selectManyMenu id="campoframeworks" style="height:150px;" 
+	     value="#{pessoaBean.pessoa.frameworks}">
+	    	<f:selectItem itemValue="Hibernate" />
+	    	<f:selectItem itemValue="Spring Mvc" />
+	    	<f:selectItem itemValue="Jpa"/>
+	    	<f:selectItem itemValue="PrimeFaces"/>
+	    	<f:selectItem itemValue="JSF"/>
+	    </h:selectManyMenu>
+	    
+	    
+	    <h:outputLabel value="Ativo:"/>
+	    <h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
+	    
+	    <h:outputLabel value="Login:"/>
+	    <h:inputText value="#{pessoaBean.pessoa.login}"/>
+	    
+	    <h:outputLabel value="Senha:"/>
+	    <h:inputSecret value="#{pessoaBean.pessoa.senha}"/>
+	    
+	    
+	     <h:outputLabel value="Perfil:"/>
+	    
+	    <h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfilUser}" required="false">
+	        <f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true"/>
+	    	<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
+	    	<f:selectItem itemValue="SECRETARIO" itemLabel="Secretário"/>
+	    	<f:selectItem itemValue="RECEPCIONISTA" itemLabel="Recepcionista"/>
+	    </h:selectOneMenu>
+	    
+	    <h:outputLabel/>
+	    <h:panelGroup>
+	    		<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/new_add_user_16734.png" title="Novo"/>
+			    <h:commandButton style="margin-left:1cm;" value="Salvar" action="#{pessoaBean.salvar}" image="/resources/img/salvar.png" title="Salvar" />
+			    <h:commandButton style="margin-left:1cm;" value="Remove" action="#{pessoaBean.remove}" image="/resources/img/excluir.png" title="Remover"/>
+			    <h:commandButton style="margin-left:1cm;" value="Limpar" type="reset" image="/resources/img/limpar.png" title="Limpar"/>
+	    </h:panelGroup>
+	    
+	    </h:panelGrid> 
+	    
+	     
+	     <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3" cellpadding="6">
+	     
+	     	<f:facet name="header">
+	     	   Lista usuário cadastrados
+	     	</f:facet>
+	     
+	     	<h:column>
+	     	    <f:facet name="header">ID</f:facet>
+	     		<h:outputText value="#{pessoa.id}"/>
+	     	</h:column>
+	     	
+	     	<h:column>
+	     	  <f:facet name="header">Nome da pessoa</f:facet>
+	     		<h:outputText value="#{pessoa.nome}"/>
+	     	</h:column>
+	     	
+	     	<h:column>
+	     		  <f:facet name="header">Sobrenome da pessoa</f:facet>
+	     		<h:outputText value="#{pessoa.sobrenome}"/>
+	     	</h:column>
+	     	
+	     	<h:column>
+	     		<f:facet name="header">Editar</f:facet>
+	     		<h:commandLink title="Editar">
+	     		<h:graphicImage value="/resources/img/editar.png"/>
+	     			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}" />
+	     		</h:commandLink>
+	     	</h:column>
+	     	
+	     	
+	     	<h:column>
+	     		<f:facet name="header">Excluir</f:facet>
+	     		<h:commandLink action="#{pessoaBean.remove}" title="Excluir">
+	     			<f:setPropertyActionListener target="#{pessoaBean.pessoa}" value="#{pessoa}" />
+	     			<h:graphicImage value="/resources/img/excluir.png"/>
+	     		</h:commandLink>
+	     	</h:column>
+	     	
+	     </h:dataTable>
+	</h:form>
+
+</h:body>
+
+</html>
+
