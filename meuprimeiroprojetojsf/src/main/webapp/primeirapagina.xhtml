@@ -12,6 +12,11 @@
 
 	<h:form id="formPessoa">
 		<h1>Olá JSF</h1>
+         
+        <h:outputLabel value="Id: " />
+        <br></br>
+		<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
+		<br /><br />
 
 		<h:outputLabel value="Nome:" />
 		<br />

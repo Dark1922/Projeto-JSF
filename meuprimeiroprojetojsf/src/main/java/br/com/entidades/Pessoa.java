@@ -31,8 +31,6 @@ public class Pessoa {
 	public Pessoa() {
 		//construtor padrão
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
