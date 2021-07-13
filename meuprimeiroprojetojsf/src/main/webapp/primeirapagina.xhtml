@@ -9,7 +9,7 @@
 </h:head>
 
 <h:body>
-	<h:form id="formPessoa" style="text-align: center; ">
+	<h:form id="formPessoa" style="  text-align: center; " >
 		<h1>Olá JSF</h1>
          
         <h:outputLabel value="Id: " />
@@ -35,6 +35,26 @@
 		
 		
 		<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"/>
+		<h:commandButton value="Novo" action="#{pessoaBean.novo}"/>
+		<h:commandButton value="Remover" action="#{pessoaBean.remove}"/>
+		
+		<h:dataTable value="#{pessoaBean.pessoas} " var="p"> <!-- p de pessoas -->
+		
+		<h:column>
+		   <h:outputText value="#{p.id}"/>
+		</h:column>
+			<h:column>
+		   <h:outputText value="#{p.nome}"/>
+		</h:column>
+			<h:column>
+		   <h:outputText value="#{p.sobrenome}"/>
+		</h:column>
+			<h:column>
+		   <h:outputText value="#{p.idade}"/>
+		</h:column>
+		
+		</h:dataTable>
+		
 
 
 	</h:form>

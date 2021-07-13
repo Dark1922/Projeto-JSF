@@ -18,10 +18,17 @@ public class JPAUtil {
 		}
 
 	}
-	
+
 	public static EntityManager getEntityManager() {
-		
+
 		return factory.createEntityManager();
+	}
+	
+    //método pra descobrir ou reconhecer o id
+	public static Object getPrimaryKey(Object entity) {
+		return factory.getPersistenceUnitUtil().getIdentifier(entity); // retorna o id da nossa entidade a primary key
+																		// chave primária
+
 	}
 
 }
