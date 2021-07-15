@@ -15,12 +15,12 @@
 	<h2 style="text-align: center;">Projeto JSF Teste de aplicação</h2>
 
 	<h:form id="formPessoa" style="display:grid; justify-content: center;">
-		<h:panelGrid columns="2" style="margin-bottom: 5px; margin: 20px " >
-		
-		<f:facet name="header">
-		<h:outputText value="Cadastro em JSF"/>
-		</f:facet>	
-		
+		<h:panelGrid columns="2" style="margin-bottom: 5px; margin: 20px ">
+
+			<f:facet name="header">
+				<h:outputText value="Cadastro em JSF" />
+			</f:facet>
+
 			<h:outputLabel value="Id:" />
 			<h:inputText value="#{PessoaBean.pessoa.id}" readonly="true" />
 
@@ -32,48 +32,64 @@
 
 			<h:outputLabel value="Idade:" />
 			<h:inputText value="#{pessoaBean.pessoa.idade}" />
-			
-			<h:outputLabel/>
+
+			<h:outputLabel />
 			<h:panelGroup>
 				<h:commandButton value="Novo" action="#{pessoaBean.novo}" />
-			<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" />
-			<h:commandButton value="Remover" action="#{pessoaBean.remove}" />
+				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" />
+				<h:commandButton value="Remover" action="#{pessoaBean.remove}" />
 			</h:panelGroup>
-			
+
 		</h:panelGrid>
-		
-			 
-		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa">
+
+
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3"
+			style="text-align:center" cellpadding="6">
+
+			<f:facet name="header">
+		 Lista de Pessoas Cadastradas
+		</f:facet>
+
 			<h:column>
+				<f:facet name="header">Id</f:facet>
 				<h:outputText value="#{pessoa.id}" />
 			</h:column>
 
 			<h:column>
+				<f:facet name="header">Nome</f:facet>
 				<h:outputText value="#{pessoa.nome}" />
 			</h:column>
 
 			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
 				<h:outputText value="#{pessoa.sobrenome}" />
 			</h:column>
 
 			<h:column>
+				<f:facet name="header">Idade</f:facet>
 				<h:outputText value="#{pessoa.idade}" />
 			</h:column>
 
 			<h:column>
+				<f:facet name="header">Editar</f:facet>
 				<h:commandLink value="Editar">
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
 				</h:commandLink>
 			</h:column>
 
-
 			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+
 				<h:commandLink value="Excluir" action="#{pessoaBean.remove}">
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
 				</h:commandLink>
+
+
+
 			</h:column>
+
 
 		</h:dataTable>
 
