@@ -1,6 +1,7 @@
 package br.com.cursojsf;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.ArrayList ;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -11,7 +12,9 @@ import br.com.entidades.Pessoa;
 
 @ViewScoped
 @ManagedBean(name = "pessoaBean")
-public class PessoaBean {
+public class PessoaBean  implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private Pessoa pessoa = new Pessoa();
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
