@@ -48,6 +48,12 @@ public class PessoaBean  implements Serializable{
 		pessoas = daoGeneric.getListEntity(Pessoa.class); //class pq voi criado por uma classe genérica no daoGeneric
 	}
 	
+public String logar() {
+		
+		System.out.println(pessoa.getLogin() + " - " + pessoa.getSenha());
+		return "index.jsf"; //se n efetuar o login com sucesso vai retorna pra página index
+	}
+	
 	
 
 	public Pessoa getPessoa() {
@@ -73,5 +79,7 @@ public class PessoaBean  implements Serializable{
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
 	}
+	
+	
 
 }
