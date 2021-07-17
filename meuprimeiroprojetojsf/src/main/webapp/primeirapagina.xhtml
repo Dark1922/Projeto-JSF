@@ -16,7 +16,7 @@
 	<h2 style="text-align: center;">Projeto JSF Teste de aplicação</h2>
 	
 	<h:form id="formPessoa" style="display:grid; justify-content: center;">
-		<h:panelGrid columns="2" style="margin-bottom: 5px; margin: 20px ">
+		<h:panelGrid columns="2" style="margin: 20px ">
 
 			<f:facet name="header">
 				<h:outputText value="Cadastro de Uusário" style="text-align:center" /> 
@@ -54,18 +54,27 @@
 		   <f:selectItem itemValue="JSF"  />	
 			</h:selectManyMenu> 
 			
-		    <h:outputLabel value="Login"/>
-			<h:inputText  value=#{pessoaBean.pessoa.login}/>
+		   <h:outputLabel value="Login:" />
+			<h:inputText value="#{pessoaBean.pessoa.login}" />
 			
-			<h:outputLabel value="Senha"/>
-			<h:inputSecret  value="#{pessoaBean.pessoa.senha}"/>
+		<h:outputLabel value="Senha:" />
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+			
+			<h:outputLabel value="Perfil:" />
+			<h:selectOneMenu id="Perfil" value="#{pessoaBean.pessoa.perfilUser}" required="false"> 
+			
+			<f:selectItem itemValue="NAO" itemLabel="Selecione" noSelectionOption="true"/>
+			<f:selectItem  itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
+			<f:selectItem itemValue="SECRETARIO" itemLabel="Secretário"/>
+			<f:selectItem itemValue="ESTAGIARIO" itemLabel="Estagiário"/>
+			</h:selectOneMenu> 
 
 			<h:outputLabel />
-			<h:panelGroup style="padding-left: 34px; >
+			<h:panelGroup style="padding-left: 25px;">
 				<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/Novo (2).png" title="Novo"/>
 				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" image="/resources/img/salvar (2).png" title="Salvar"/>
 				<h:commandButton value="Remover" action="#{pessoaBean.remove}" image="/resources/img/excluir.png" title="Excluir"/>
-				<h:commandButton value="Limpar" type="reset"/>
+				<h:commandButton value="Limpar" type="reset" image="resources/img/power_reset_1847.png" title="Resetar"/>
 			</h:panelGroup>
 
 		</h:panelGrid>
