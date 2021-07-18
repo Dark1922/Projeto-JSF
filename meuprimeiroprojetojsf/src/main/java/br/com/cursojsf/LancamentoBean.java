@@ -30,7 +30,7 @@ public class LancamentoBean {
 		ExternalContext externalContext = context.getExternalContext();
 		Pessoa pessoaUser = (Pessoa) externalContext.getSessionMap().get("usuarioLogado");
 		lancamento.setUsuario(pessoaUser); // seta a pessoa
-		daoGeneric.salvar(lancamento); // salva o lançamento
+		lancamento = daoGeneric.updat(lancamento); // salva o lançamento ou atualiza
 
 		carregarLancamentos();
 
