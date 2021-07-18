@@ -1,5 +1,6 @@
 package br.com.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,7 +8,9 @@ import javax.persistence.EntityTransaction;
 
 import br.com.jpautil.JPAUtil;
 
-public class DaoGeneric<E> { //E de entidade pode ser qlq outra letra
+public class DaoGeneric<E> implements Serializable { //E de entidade pode ser qlq outra letra
+	
+	private static final long serialVersionUID = 1L;
 	
 	public void salvar(E entidade) { //método de salvar
 		

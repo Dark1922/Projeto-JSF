@@ -15,13 +15,15 @@
 			style="display:flex; justify-content: center; margin-top: 13%;">
 			<h1 style="font-family: sans-serif; font-size: 28px">Realize o
 				login</h1>
-			<h:outputLabel value="login" />
-			<h:inputText action="#{pessoaBean.pessoa.getLogin}"
+			<h:outputLabel value="Login" />
+			<h:inputText value="#{pessoaBean.pessoa.login}"
 				style="border-radius: 5px; width: 200px; height: 18px; outline-color: blue !important; border:1px solid #9D9999;"
 				required="true" />
+				
 			<br />
+			
 			<h:outputLabel value="Senha" />
-			<h:inputSecret action="#{pessoaBean.pessoa.getSenha}"
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}"
 				style="border-radius: 5px; width: 200px; height: 18px; outline-color: blue !important; border:1px solid #9D9999;"
 				required="true" />
 

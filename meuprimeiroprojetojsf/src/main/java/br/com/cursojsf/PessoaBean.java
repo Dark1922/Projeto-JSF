@@ -6,9 +6,13 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import br.com.dao.DaoGeneric;
 import br.com.entidades.Pessoa;
+import br.com.repository.IDaoPessoa;
+import br.com.repository.IDaoPessoaImpl;
 
 @ViewScoped
 @ManagedBean(name = "pessoaBean")
@@ -19,6 +23,8 @@ public class PessoaBean  implements Serializable{
 	private Pessoa pessoa = new Pessoa();
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	
+	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl(); //ese 
 
 	public String salvar() {
 
@@ -48,13 +54,6 @@ public class PessoaBean  implements Serializable{
 		pessoas = daoGeneric.getListEntity(Pessoa.class); //class pq voi criado por uma classe genérica no daoGeneric
 	}
 	
-public String logar() {
-		
-		System.out.println(pessoa.getLogin() + " - " + pessoa.getSenha());
-		return "index.jsf"; //se n efetuar o login com sucesso vai retorna pra página index
-	}
-	
-	
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -78,8 +77,25 @@ public String logar() {
 	
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	} 
+	
+public String logar() {
+	 //consultar oque veio da tela
+	 Pessoa pessoaUser = iDaoPessoa.consultarUsuario(pessoa.getLogin(), pessoa.getSenha());
+	 
+	 if (pessoa != null) { //acho usuário
+		//adicionar o usuario na sessão
+		 
+		 FacesContext context = FacesContext.getCurrentInstance(); //informação do ambiente de execução
+		 ExternalContext externalContext = context.getExternalContext();
+		 externalContext.getSessionMap().put("usuarioLogado", pessoaUser.getLogin());
+		 //vai retorna o usuario logado pelo login adiciona na sessão e ele vai nos levar
+		 //para a primeira página 
+		 
+		 return "primeirapagina.jsf"; 
+	 }
+		
+		return "index.jsf"; //se n efetuar o login com sucesso vai retorna pra página index
 	}
-	
-	
 
-}
+}  // System.out.println(pessoa.getLogin() + " - " + pessoa.getSenha()); teste se tava vindo o login e senha pelo formulario pelo logar
