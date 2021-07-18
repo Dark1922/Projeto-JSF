@@ -88,14 +88,23 @@ public String logar() {
 		 
 		 FacesContext context = FacesContext.getCurrentInstance(); //informação do ambiente de execução
 		 ExternalContext externalContext = context.getExternalContext();
-		 externalContext.getSessionMap().put("usuarioLogado", pessoaUser.getLogin());
+		 externalContext.getSessionMap().put("usuarioLogado", pessoaUser);//passa o objeto pessoa inteiro que é o pessoaUser
 		 //vai retorna o usuario logado pelo login adiciona na sessão e ele vai nos levar
 		 //para a primeira página 
 		 
-		 return "primeirapagina.jsf"; 
+		 return "primeirapagina.jsf";
 	 }
 		
 		return "index.jsf"; //se n efetuar o login com sucesso vai retorna pra página index
 	}
 
-}  // System.out.println(pessoa.getLogin() + " - " + pessoa.getSenha()); teste se tava vindo o login e senha pelo formulario pelo logar
+public boolean permiteAcesso(String acesso) {
+	 FacesContext context = FacesContext.getCurrentInstance(); 
+	 ExternalContext externalContext = context.getExternalContext();
+	 Pessoa pessoaUser = (Pessoa) externalContext.getSessionMap().get("usuarioLogado");
+
+	 return pessoaUser.getPerfilUser().equals(acesso); //true ou false o equal retorna
+
+}
+
+} 

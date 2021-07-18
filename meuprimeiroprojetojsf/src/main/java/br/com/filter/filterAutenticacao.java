@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import br.com.entidades.Pessoa;
 import br.com.jpautil.JPAUtil;
 
 @WebFilter(urlPatterns ={"/*"}) //intercepta todas as páginas
@@ -31,14 +32,13 @@ public class filterAutenticacao implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
 		
-		String usuarioLogado = (String) session.getAttribute("usuarioLogado");
+		Pessoa usuarioLogado = (Pessoa) session.getAttribute("usuarioLogado"); //vai receber pessoa
 		
 		String url = req.getServletPath();
 		
 		//se o usuario tiver na url diferente da index e tiver em outra páagina logado está autenticado
 		//caso contrário não está autenticado
-		if (!url.equalsIgnoreCase("index.jsf") && usuarioLogado == null ||
-			(usuarioLogado != null && usuarioLogado.trim().isEmpty())){
+		if (!url.equalsIgnoreCase("index.jsf") && usuarioLogado == null){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsf");
 			dispatcher.forward(request, response);
 			return;

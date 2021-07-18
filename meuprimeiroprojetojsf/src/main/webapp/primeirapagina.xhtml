@@ -70,11 +70,11 @@
 			</h:selectOneMenu> 
 
 			<h:outputLabel />
-			<h:panelGroup style="padding-left: 25px;">
-				<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="/resources/img/Novo (2).png" title="Novo"/>
-				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" image="/resources/img/salvar (2).png" title="Salvar"/>
-				<h:commandButton value="Remover" action="#{pessoaBean.remove}" image="/resources/img/excluir.png" title="Excluir"/>
-				<h:commandButton value="Limpar" type="reset" image="resources/img/power_reset_1847.png" title="Resetar"/>
+			<h:panelGroup>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Novo" action="#{pessoaBean.novo}" image="/resources/img/Novo (2).png" title="Novo"/>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Salvar" action="#{pessoaBean.salvar}" image="/resources/img/salvar.png" title="Salvar"/>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Remover" action="#{pessoaBean.remove}" image="/resources/img/excluir.png" title="Excluir"/>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Limpar" type="reset" image="resources/img/power_reset_1847.png" title="Resetar"/>
 			</h:panelGroup>
 
 		</h:panelGrid>
@@ -116,7 +116,7 @@
 				</h:commandLink>
 			</h:column>
 
-			<h:column>
+			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 				<f:facet name="header">Excluir</f:facet>
 
 				<h:commandLink  action="#{pessoaBean.remove}">
