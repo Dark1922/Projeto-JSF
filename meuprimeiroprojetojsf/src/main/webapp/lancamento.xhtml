@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Lancamentos</title>
+</h:head>
+
+<h:body>
+
+	<h:graphicImage  library="img" name="logotipo.png" heigth="80" width="80"/>
+	
+	<h:form style="margin-left: 9%; font-size: 18px;">
+	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Administração" action="primeirapagina"/>
+	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Lançamentos" action="lancamento?faces-redirect=true"/>
+	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Trocar Usuario" action="index"/>
+	
+	
+	</h:form> 
+	
+		<h:form id="formLancamento" style="display:grid; justify-content: center;" >
+		
+		<h:form>
+		<h:panelGrid columns="2" style="margin: 50px">
+			
+				<f:facet name="header">
+				<h:outputText value="Lançamentos" style="text-align:center" /> 
+			</f:facet>
+				 
+			<h:outputLabel  value="ID:" />
+			<h:inputText value="#{lancamentoBean.lancamento.id}" rendered="true"/>
+			
+			<h:outputLabel  value="Nota:"/>
+			<h:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}"/>
+			
+			<h:outputLabel  value="Origem:"/>
+			<h:inputText value="#{lancamentoBean.lancamento.empresaOrigem}"/>
+			
+			<h:outputLabel  value="Destino:"/>
+			<h:inputText value="#{lancamentoBean.lancamento.empresaDestino}"/>
+			
+			<h:outputLabel />
+			<h:panelGroup>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Novo" action="#{lancamentoBean.novo}" image="/resources/img/Novo (2).png" title="Novo"/>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Salvar" action="#{lancamentoBean.salvar}" image="/resources/img/salvar.png" title="Salvar"/>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Remover" action="#{lancamentoBean.remove}" image="/resources/img/excluir.png" title="Excluir"/>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Limpar" type="reset" image="resources/img/power_reset_1847.png" title="Resetar"/>
+			
+			</h:panelGroup>
+			
+			</h:panelGrid> 
+
+		 </h:form>
+
+	</h:form>
+</h:body>
+
+</html>
+

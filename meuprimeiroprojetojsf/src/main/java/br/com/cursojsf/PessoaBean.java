@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList ;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -48,7 +49,7 @@ public class PessoaBean  implements Serializable{
 		return "";
 	}
 	
-	
+	@PostConstruct
 	public void carregarPessoas() {
 		
 		pessoas = daoGeneric.getListEntity(Pessoa.class); //class pq voi criado por uma classe genérica no daoGeneric
