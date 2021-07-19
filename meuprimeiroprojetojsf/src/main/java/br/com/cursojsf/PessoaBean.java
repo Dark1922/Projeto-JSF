@@ -49,6 +49,11 @@ public class PessoaBean  implements Serializable{
 		pessoa = new Pessoa(); // instanciar uma nova pessoa 
 		return ""; // vem vazio o formulário pra cadastra um novo
 	}
+	public String limpar() {
+       //executa algo antes de limpar aqui
+		pessoa = new Pessoa(); // instanciar uma nova pessoa 
+		return ""; // vem vazio o formulário pra cadastra um novo
+	}
 
 	public String remove() {
 
