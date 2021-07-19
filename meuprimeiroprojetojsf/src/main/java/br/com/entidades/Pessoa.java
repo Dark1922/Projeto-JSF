@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Pessoa implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id // primary key
@@ -36,6 +36,30 @@ public class Pessoa implements Serializable {
 	private String[] frameworks;
 
 	private String perfilUser;
+
+	private String nivelProgramador;
+
+	private Integer[] linguagens; // integer pq vamos deixar pra receber em numeor as linguagem p;
+
+	public void setLinguagens(Integer[] linguagens) {
+		this.linguagens = linguagens;
+	}
+
+	public Integer[] getLinguagens() {
+		return linguagens;
+	}
+
+	public String getNivelProgramador() {
+		return nivelProgramador;
+	}
+
+	public void setNivelProgramador(String nivelProgramador) {
+		this.nivelProgramador = nivelProgramador;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	@Temporal(TemporalType.DATE) // padrão de data que quer só a data
 	private Date dataNascimento;

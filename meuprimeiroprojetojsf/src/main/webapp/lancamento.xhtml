@@ -13,7 +13,7 @@
 	<h:graphicImage  library="img" name="logotipo.png" heigth="80" width="80"/>
 	
 	<h:form style="margin-left: 9%; font-size: 18px;">
-	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Administração" action="primeirapagina"/>
+	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Administração" action="primeirapagina" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
 	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Lançamentos" action="lancamento?faces-redirect=true"/>
 	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Trocar Usuario" action="index"/>
 	
@@ -44,7 +44,7 @@
 			<h:panelGroup>
 				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Novo" action="#{lancamentoBean.novo}" image="/resources/img/Novo (2).png" title="Novo"/>
 				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Salvar" action="#{lancamentoBean.salvar}" image="/resources/img/salvar.png" title="Salvar"/>
-				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Remover" action="#{lancamentoBean.remove}" image="/resources/img/excluir.png" title="Excluir"/>
+				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Remover" action="#{lancamentoBean.remove}" image="/resources/img/excluir.png" title="Excluir" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
 				<h:commandButton style="margin-left: 6px; margin-top: 7px;" value="Limpar" type="reset" image="resources/img/power_reset_1847.png" title="Resetar"/>
 			</h:panelGroup>
 			
@@ -84,7 +84,7 @@
 				</h:commandLink>
 			</h:column>
 
-			<h:column>
+			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 				<f:facet name="header">Excluir</f:facet>
 
 				<h:commandLink title="Deletar"  action="#{lancamentoBean.remove}">
