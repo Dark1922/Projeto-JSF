@@ -5,6 +5,7 @@ import java.util.ArrayList ;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -30,14 +31,22 @@ public class PessoaBean  implements Serializable{
 	public String salvar() {
 
 		pessoa = daoGeneric.updat(pessoa); // pode criar mais de um objeto sem dar erro
-		carregarPessoas(); // método pra carregar a lista de pessoas
+		carregarPessoas();// método pra carregar a lista de pessoas
+		mostrarMsg("Cadastrado com sucesso!");
 		return ""; // salva na msm página e retorna os dados pra gente como o merge pq tem o
 					// retorno de nossas entidade;
 	}
 
+	private void mostrarMsg(String  msg) {
+          //contexto do java servefacess
+		FacesContext context = FacesContext.getCurrentInstance(); //ambiente que ele está rodando e pega a instc do jsf
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
+	}
+
 	public String novo() {
 
-		pessoa = new Pessoa(); // instanciar uma nova pessoa
+		pessoa = new Pessoa(); // instanciar uma nova pessoa 
 		return ""; // vem vazio o formulário pra cadastra um novo
 	}
 
@@ -46,6 +55,7 @@ public class PessoaBean  implements Serializable{
 		daoGeneric.deletePorId(pessoa);
 		pessoa = new Pessoa();
 		carregarPessoas();
+		mostrarMsg("Removido com Sucesso!");
 		return "";
 	}
 	

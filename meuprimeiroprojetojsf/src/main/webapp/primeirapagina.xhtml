@@ -24,9 +24,12 @@
 
 	<h2 style="text-align: center;">Projeto JSF Teste de aplicação</h2>
 	
+	<h:messages style="text-align: center; color: green; font-size: 17px; list-style-type: none;"  />
 	
 	<h:form id="formPessoa" style="display:grid; justify-content: center;" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 		<h:panelGrid columns="2" style="margin: 20px ">
+		
+		
 
 			<f:facet name="header">
 				<h:outputText value="Cadastro de Uusário" style="text-align:center" /> 
@@ -36,18 +39,18 @@
 			<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
 
 			<h:outputLabel value="Nome:" />
-			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true" />
+			<h:inputText value="#{pessoaBean.pessoa.nome}"   />
 
 			<h:outputLabel value="Sobreome:" />
-			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" required="true" />
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}"  />
 
 			<h:outputLabel value="Idade:" />
-			<h:inputText value="#{pessoaBean.pessoa.idade}" required="true" />
+			<h:inputText value="#{pessoaBean.pessoa.idade}"   />
 			
 			<h:outputLabel value="Programador:" />
-			<h:selectOneMenu id="campoProgramador" value="#{pessoaBean.pessoa.nivelProgramador}" required="true"> 
+			<h:selectOneMenu id="campoProgramador" value="#{pessoaBean.pessoa.nivelProgramador}"  > 
 			
-			<f:selectItem itemValue="NAO-SELECIONADO" itemLabel="Selecione" noSelectionOption="false" required="true"/>
+			<f:selectItem itemValue="NAO-SELECIONADO" itemLabel="Selecione" noSelectionOption="true"  />
 			<f:selectItem  itemValue="J" itemLabel="Junior"/>
 			<f:selectItem itemValue="P" itemLabel="Pleno"/>
 			<f:selectItem itemValue="S" itemLabel="Senior"/>
@@ -67,15 +70,15 @@
 			</h:selectManyMenu> 
 			
 		   <h:outputLabel value="Login:" />
-			<h:inputText value="#{pessoaBean.pessoa.login}" required="true" />
+			<h:inputText value="#{pessoaBean.pessoa.login}"   />
 			
 		<h:outputLabel value="Senha:" />
-			<h:inputSecret value="#{pessoaBean.pessoa.senha}" required="true" />
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}"   />
 			
 			
 			
 			<h:outputLabel value="Perfil:" />
-			<h:selectOneMenu id="Perfil" value="#{pessoaBean.pessoa.perfilUser}" required="false"> 
+			<h:selectOneMenu id="Perfil" value="#{pessoaBean.pessoa.perfilUser}" required="true"> 
 			
 			<f:selectItem itemValue="NAO" itemLabel="Selecione" noSelectionOption="true"/>
 			<f:selectItem  itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
@@ -86,10 +89,11 @@
 			
 			<!-- itemValue é oque vai pro banco de dados o label é o que parece na tela-->
 			<h:outputLabel value="Sexo:" />
-			<h:selectOneRadio value="#{pessoaBean.pessoa.sexo}" required="true" layout="lineDirection" >
+			<h:selectOneRadio value="#{pessoaBean.pessoa.sexo}"  >
 			<f:selectItem itemValue="MASCULINO" itemLabel="Masculino"/>
 			<f:selectItem itemValue="FEMININO" itemLabel="Feminino"/>
 			</h:selectOneRadio>
+			 
 			
 			<h:outputLabel value="Linguagens:" />
 			<h:selectManyCheckbox value="#{pessoaBean.pessoa.linguagens}">
