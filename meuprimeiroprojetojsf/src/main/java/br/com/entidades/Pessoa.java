@@ -63,6 +63,19 @@ public class Pessoa implements Serializable {
 
 	@Temporal(TemporalType.DATE) // padrão de data que quer só a data
 	private Date dataNascimento;
+	
+	
+     private String cep;
+     
+     public void setCep(String cep) {
+		this.cep = cep;
+	}
+     
+     public String getCep() {
+		return cep;
+	}
+	
+	
 
 	public Pessoa() {
 		// construtor padrão

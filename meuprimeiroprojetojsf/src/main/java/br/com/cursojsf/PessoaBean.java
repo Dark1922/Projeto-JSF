@@ -8,8 +8,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import br.com.dao.DaoGeneric;
 import br.com.entidades.Pessoa;
@@ -70,6 +72,10 @@ public class PessoaBean  implements Serializable{
 		pessoas = daoGeneric.getListEntity(Pessoa.class); //class pq voi criado por uma classe genérica no daoGeneric
 	}
 	
+	public void pesquisaCep(AjaxBehaviorEvent event) {//tem que tar declarado aqui pro jsf entender o listener
+		
+		System.out.println("Método pesquisa Cep chamdo CEP: " + pessoa.getCep());
+	}
 
 	public Pessoa getPessoa() {
 		return pessoa;

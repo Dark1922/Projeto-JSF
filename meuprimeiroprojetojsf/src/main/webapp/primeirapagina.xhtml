@@ -72,7 +72,12 @@
 				<f:selectItem itemValue="S" itemLabel="Senior" />
 				<f:selectItem itemValue="E" itemLabel="Especialista" />
 			</h:selectOneMenu>
-
+			
+			<h:outputLabel  value="CEP:"/>
+			<h:inputText value="#{pessoaBean.pessoa.cep}">
+			<f:ajax event="blur" execute="@this" render="" listener="#{pessoaBean.pesquisaCep}"/>
+			</h:inputText>
+ 
 			<h:outputLabel value="Ativo" />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
 
