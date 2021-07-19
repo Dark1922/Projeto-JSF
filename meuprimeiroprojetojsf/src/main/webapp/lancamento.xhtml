@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Lancamentos</title>
@@ -10,12 +11,7 @@
 
 <h:body>
 
-	<h:graphicImage  library="img" name="logotipo.png" heigth="80" width="80"/>
-	
-	<h:form style="margin-left: 9%; font-size: 18px;">
-	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Administração" action="primeirapagina" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
-	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Lançamentos" action="lancamento?faces-redirect=true"/>
-	<h:commandLink style="margin-left: 8px; text-decoration: none;" value="Trocar Usuario" action="index"/>
+	<ui:include src="/menu.xhtml"></ui:include>
 	
 	
 	</h:form> 
