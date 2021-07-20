@@ -163,12 +163,12 @@
 				<f:selectItem itemValue="4" itemLabel="C#" />
 				<f:selectItem itemValue="5" itemLabel="NodeJs" />
 			</h:selectManyCheckbox>
-
+            <h:outputLabel />
          <!-- vai chamar o get e vai consultar no banco -->
 			<h:outputLabel value="Estados:" />
 			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}">
-              <f:selectItem  value="#{pessoaBean.estados}"/>
-			</h:selectOneMenu>
+              <f:selectItems  value="#{pessoaBean.estados}"/>
+			</h:selectOneMenu> 
 
 			<h:outputLabel />
 			<h:panelGroup>

@@ -11,10 +11,14 @@ import javax.persistence.Id;
 public class Estados implements Serializable {
 
 	private static final long serialVersionUID = 1L;
- 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	private String sigla;
+
+	private String nome;
 
 	@Override
 	public int hashCode() {
@@ -40,10 +44,6 @@ public class Estados implements Serializable {
 			return false;
 		return true;
 	}
-
-	private String sigla;
-	
-	private String nome;
 
 	public String getNome() {
 		return nome;
