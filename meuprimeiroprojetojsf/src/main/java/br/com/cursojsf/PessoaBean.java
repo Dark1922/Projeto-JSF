@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -212,33 +213,50 @@ public class PessoaBean implements Serializable {
 	}
 
 	public void carregaCidades(AjaxBehaviorEvent event) {// evento de ajax
-		// retorna o código do estado atráves do submittedValue que vem do event do ajax
-		String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
+		// objeto so select oneMenu assim como pega o objeto inteiro que foi selecionado
+		// no comboBox na primeira página
+		Estados estado = (Estados) ((HtmlSelectOneMenu) event.getSource()).getValue();
 
-		if (codigoEstado != null) { // tratando o dado selecione pq ele vem null qnd ta selecionado
-			Estados estado = JPAUtil.getEntityManager().find(Estados.class, Long.parseLong(codigoEstado));
-			// busca todos estados pelo nosso banco de dados pelo find e vai receber em long
-			// numeros inteiros que vem do codigoEstado
+		if (estado != null) {
 
-			if (estado != null) {
+			pessoa.setEstados(estado); // pessoa que está sendo controlado pelo maneg bean pega o estado que agr
+										// carrego
+			List<Cidades> cidades = JPAUtil.getEntityManager()
+					.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+			// lista de cidades
 
-				pessoa.setEstados(estado); // pessoa que está sendo controlado pelo maneg bean pega o estado que agr
-											// carrego
-				List<Cidades> cidades = JPAUtil.getEntityManager()
-						.createQuery("from Cidades where estados.id = " + codigoEstado).getResultList();
-				// lista de cidades
+			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 
-				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
-
-				for (Cidades cidade : cidades) {// preencer o for varrendo a lista de cidades
-
-					selectItemsCidade.add(new SelectItem(cidade.getId(), cidade.getNome()));
-					// convertendo para uma lista de selectItem
-				}
-
-				setCidades(selectItemsCidade); // adiciona para setCidades
+			for (Cidades cidade : cidades) {// preencer o for varrendo a lista de cidades
+											// objeto cidade inteiro
+				selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
+				// convertendo para uma lista de selectItem
 			}
 
+			setCidades(selectItemsCidade); // adiciona para setCidades
+		}
+
+	}
+
+	public void editar() {
+
+		if (pessoa.getCidades() != null) {
+			Estados estado = pessoa.getCidades().getEstados(); // estado dessa pessoa
+			pessoa.setEstados(estado); // seta o estado dele
+
+			List<Cidades> cidades = JPAUtil.getEntityManager()
+					.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
+			// lista de cidades
+
+			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+
+			for (Cidades cidade : cidades) {// preencer o for varrendo a lista de cidades
+											// objeto cidade inteiro
+				selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
+				// convertendo para uma lista de selectItem
+			}
+
+			setCidades(selectItemsCidade); // adiciona para setCidades
 		}
 	}
 
@@ -249,4 +267,5 @@ public class PessoaBean implements Serializable {
 	public void setCidades(List<SelectItem> cidades) {
 		this.cidades = cidades;
 	}
+
 }

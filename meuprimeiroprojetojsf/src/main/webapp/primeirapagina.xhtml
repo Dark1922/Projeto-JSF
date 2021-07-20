@@ -163,20 +163,24 @@
 				<f:selectItem itemValue="4" itemLabel="C#" />
 				<f:selectItem itemValue="5" itemLabel="NodeJs" />
 			</h:selectManyCheckbox>
+
+			<h:outputLabel />
+			<!-- vai chamar o get e vai consultar no banco -->
 			
-            <h:outputLabel />
-         <!-- vai chamar o get e vai consultar no banco -->
 			<h:outputLabel value="Estados:" />
-			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" required="true" immediate="true">
-			<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-              <f:selectItems  value="#{pessoaBean.estados}"/>
-              <f:ajax  event="change" execute="@this" listener="#{pessoaBean.carregaCidades}" render="comboCidade"/>
-			</h:selectOneMenu> 
-			 
+			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" required="true"
+				immediate="true" id="comboEstado" converter="estadoConverter">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				<f:selectItems value="#{pessoaBean.estados}" />
+				<f:ajax event="change" execute="@this"
+				 render="comboCidade" listener="#{pessoaBean.carregaCidades}" />
+			</h:selectOneMenu>
+
 			<h:outputLabel value="Cidades:" />
-				<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" required="true" id="comboCidade" immediate="true">
-				<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-              <f:selectItems  value="#{pessoaBean.cidades}"/>
+			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" required="true"
+				id="comboCidade" immediate="true" converter="cidadeConverter">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				<f:selectItems value="#{pessoaBean.cidades}" />
 			</h:selectOneMenu>
 
 			<h:outputLabel />
@@ -234,10 +238,10 @@
 				<f:facet name="header">Idade</f:facet>
 				<h:outputText value="#{pessoa.idade}" />
 			</h:column>
-
+ 
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink>
+				<h:commandLink action="#{pessoaBean.editar}"> 
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
 					<h:graphicImage value="/resources/img/editar.png" title="Editar" />

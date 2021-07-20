@@ -47,8 +47,8 @@ public class IDaoPessoaImpl implements IDaoPessoa, Serializable {
 		// busca todos Estados
 		List<Estados> estados = entityManager.createQuery("from Estados").getResultList();
 
-		for (Estados estado : estados) {
-			selectItems.add(new SelectItem(estado.getId(), estado.getNome()));
+		for (Estados estado : estados) { //manda o objeto estado inteiro e varre o nome
+			selectItems.add(new SelectItem(estado, estado.getNome()));
 		} // preencheu o for com a lista de estados
 
 		return selectItems; // retorna a lista de selecitems
