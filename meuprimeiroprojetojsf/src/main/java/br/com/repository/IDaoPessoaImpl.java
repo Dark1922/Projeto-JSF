@@ -1,5 +1,6 @@
 package br.com.repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +15,18 @@ import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
 import br.com.jpautil.JPAUtil;
 
-public class IDaoPessoaImpl implements IDaoPessoa {
+public class IDaoPessoaImpl implements IDaoPessoa, Serializable {
 
-	//@Inject
-	//private EntityManager entityManager;
+	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private EntityManager entityManager = JPAUtil.getEntityManager();
 
 	@Override
 	public Pessoa consultarUsuario(String login, String senha) {
 
 		Pessoa pessoa = null;
 
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin(); // deixa ativo a transaction pra poder salvar etc
 
@@ -33,7 +35,6 @@ public class IDaoPessoaImpl implements IDaoPessoa {
 				.getSingleResult();
 
 		entityTransaction.commit();
-		entityManager.close();
 
 		return pessoa;
 	}
@@ -43,16 +44,11 @@ public class IDaoPessoaImpl implements IDaoPessoa {
 
 		List<SelectItem> selectItems = new ArrayList<SelectItem>(); // lista vazia
 
-		// inicia uma transação com o banco de dados com nossa conexão
-		EntityManager entityManager = JPAUtil.getEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
-
 		// busca todos Estados
 		List<Estados> estados = entityManager.createQuery("from Estados").getResultList();
 
 		for (Estados estado : estados) {
-			selectItems.add(new SelectItem(estado, estado.getNome()));
+			selectItems.add(new SelectItem(estado.getId(), estado.getNome()));
 		} // preencheu o for com a lista de estados
 
 		return selectItems; // retorna a lista de selecitems

@@ -22,7 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 
 import br.com.dao.DaoGeneric;
+import br.com.entidades.Cidades;
+import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
+import br.com.jpautil.JPAUtil;
 import br.com.repository.IDaoPessoa;
 import br.com.repository.IDaoPessoaImpl;
 
@@ -36,6 +39,7 @@ public class PessoaBean implements Serializable {
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private List<SelectItem> estados;
+	private List<SelectItem> cidades;
 
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl(); // ese
 
@@ -207,4 +211,42 @@ public class PessoaBean implements Serializable {
 		this.estados = estados;
 	}
 
+	public void carregaCidades(AjaxBehaviorEvent event) {// evento de ajax
+		// retorna o código do estado atráves do submittedValue que vem do event do ajax
+		String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
+
+		if (codigoEstado != null) { // tratando o dado selecione pq ele vem null qnd ta selecionado
+			Estados estado = JPAUtil.getEntityManager().find(Estados.class, Long.parseLong(codigoEstado));
+			// busca todos estados pelo nosso banco de dados pelo find e vai receber em long
+			// numeros inteiros que vem do codigoEstado
+
+			if (estado != null) {
+
+				pessoa.setEstados(estado); // pessoa que está sendo controlado pelo maneg bean pega o estado que agr
+											// carrego
+				List<Cidades> cidades = JPAUtil.getEntityManager()
+						.createQuery("from Cidades where estados.id = " + codigoEstado).getResultList();
+				// lista de cidades
+
+				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+
+				for (Cidades cidade : cidades) {// preencer o for varrendo a lista de cidades
+
+					selectItemsCidade.add(new SelectItem(cidade.getId(), cidade.getNome()));
+					// convertendo para uma lista de selectItem
+				}
+
+				setCidades(selectItemsCidade); // adiciona para setCidades
+			}
+
+		}
+	}
+
+	public List<SelectItem> getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(List<SelectItem> cidades) {
+		this.cidades = cidades;
+	}
 }

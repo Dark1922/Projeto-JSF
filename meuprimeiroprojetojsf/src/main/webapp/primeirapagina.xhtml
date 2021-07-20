@@ -163,12 +163,21 @@
 				<f:selectItem itemValue="4" itemLabel="C#" />
 				<f:selectItem itemValue="5" itemLabel="NodeJs" />
 			</h:selectManyCheckbox>
+			
             <h:outputLabel />
          <!-- vai chamar o get e vai consultar no banco -->
 			<h:outputLabel value="Estados:" />
-			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}">
+			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" required="true" immediate="true">
+			<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
               <f:selectItems  value="#{pessoaBean.estados}"/>
+              <f:ajax  event="change" execute="@this" listener="#{pessoaBean.carregaCidades}" render="comboCidade"/>
 			</h:selectOneMenu> 
+			 
+			<h:outputLabel value="Cidades:" />
+				<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" required="true" id="comboCidade" immediate="true">
+				<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+              <f:selectItems  value="#{pessoaBean.cidades}"/>
+			</h:selectOneMenu>
 
 			<h:outputLabel />
 			<h:panelGroup>

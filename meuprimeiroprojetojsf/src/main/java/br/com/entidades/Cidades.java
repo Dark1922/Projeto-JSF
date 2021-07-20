@@ -24,6 +24,9 @@ public class Cidades implements Serializable {
 	
 	private String nome;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	private Estados estados;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,8 +53,7 @@ public class Cidades implements Serializable {
 	}
 
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	private Estados estados;
+	
           
 
     public Long getId() {

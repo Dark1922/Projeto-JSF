@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -41,6 +42,17 @@ public class Pessoa implements Serializable {
 	private String nivelProgramador;
 
 	private Integer[] linguagens; // integer pq vamos deixar pra receber em numeor as linguagem p;
+
+	@ManyToOne
+	private Cidades cidades;
+
+	public Cidades getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(Cidades cidades) {
+		this.cidades = cidades;
+	}
 
 	public void setLinguagens(Integer[] linguagens) {
 		this.linguagens = linguagens;
@@ -78,11 +90,9 @@ public class Pessoa implements Serializable {
 	private String ibge;
 
 	private String gia;
-	
-	@Transient //n fica persistente  ou n grava no banco só fica em memória pra ajudar a prgm
+
+	@Transient // n fica persistente ou n grava no banco só fica em memória pra ajudar a prgm
 	private Estados estados;
-	
-	
 
 	public Estados getEstados() {
 		return estados;
