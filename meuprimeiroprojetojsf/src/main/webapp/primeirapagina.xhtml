@@ -4,8 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	> 
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 
 	<title>Cadastro de Usuário</title>
@@ -41,25 +40,29 @@
 
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
-				requiredMessage="Informe o Nome de usuário" pt:placeholder="Informe o Nome do Usuário"
+				requiredMessage="Informe o Nome de usuário"
+				pt:placeholder="Informe o Nome do Usuário"
 				validatorMessage="Nome tem que ter no minímo 4 caracteres">
 				<f:validateLength maximum="50" minimum="4" />
-				
+
 			</h:inputText>
 
 
 			<h:outputLabel value="Sobreome:" />
 			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" required="true"
-				requiredMessage="Informe o Sobrenome de usuário" pt:placeholder="Informe o Sobrenome" />
+				requiredMessage="Informe o Sobrenome de usuário"
+				pt:placeholder="Informe o Sobrenome" />
 
 			<h:outputLabel value="Idade:" />
 			<h:inputText value="#{pessoaBean.pessoa.idade}" required="true"
-				requiredMessage="Informe a Idade do usuário" pt:placeholder="Informe a Idade	" />
+				requiredMessage="Informe a Idade do usuário"
+				pt:placeholder="Informe a Idade	" />
 
 			<h:outputLabel value="Nascimento:" />
 			<h:inputText value="#{pessoaBean.pessoa.dataNascimento}"
 				converterMessage="Data de nacimento errada" required="true"
-				requiredMessage="Informe a Data de Nascimento dd/MM/yyyy" pt:placeholder="dd/MM/yyyy">
+				requiredMessage="Informe a Data de Nascimento dd/MM/yyyy"
+				pt:placeholder="dd/MM/yyyy">
 				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 					timeZone="GMT-03:00" />
 			</h:inputText>
@@ -77,21 +80,23 @@
 			</h:selectOneMenu>
 
 			<h:outputLabel value="CEP:" />
-			<h:inputText value="#{pessoaBean.pessoa.cep}"  pt:placeholder="Informe um Cep Válido">
-				<f:ajax event="blur" execute="@this" render="logradouro complemento bairro localidade"
-					listener="#{pessoaBean.pesquisaCep}"
-					 />
+			<h:inputText value="#{pessoaBean.pessoa.cep}"
+				pt:placeholder="Informe um Cep Válido">
+				<f:ajax event="blur" execute="@this"
+					render="logradouro complemento bairro localidade"
+					listener="#{pessoaBean.pesquisaCep}" />
 			</h:inputText>
- 
+
 			<h:outputLabel value="Logadouro:" />
 			<h:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro" />
-			
+
 			<h:outputLabel value="Complemento:" />
-			<h:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento" />
-			
+			<h:inputText value="#{pessoaBean.pessoa.complemento}"
+				id="complemento" />
+
 			<h:outputLabel value="Bairro:" />
 			<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro" />
-			
+
 			<h:outputLabel value="Localidade:" />
 			<h:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade" />
 
@@ -113,14 +118,16 @@
 
 			<h:outputLabel value="Login:" />
 			<h:inputText value="#{pessoaBean.pessoa.login}" required="true"
-				requiredMessage="Informe o Login" pt:placeholder="Informe o Login de Usuário"
+				requiredMessage="Informe o Login"
+				pt:placeholder="Informe o Login de Usuário"
 				validatorMessage="Nome tem que ter no minímo  6 caracteres / Máx 20">
 				<f:validateLength maximum="20" minimum="6" />
 			</h:inputText>
 
 			<h:outputLabel value="Senha:" />
 			<h:inputSecret value="#{pessoaBean.pessoa.senha}" required="true"
-				requiredMessage="Informe a Senha"  pt:placeholder="Informe a Senha de Usuário"
+				requiredMessage="Informe a Senha"
+				pt:placeholder="Informe a Senha de Usuário"
 				validatorMessage="Nome tem que ter no minímo 6 caracteres / Máx 20">
 				<f:validateLength maximum="20" minimum="6" />
 			</h:inputSecret>
@@ -156,6 +163,12 @@
 				<f:selectItem itemValue="4" itemLabel="C#" />
 				<f:selectItem itemValue="5" itemLabel="NodeJs" />
 			</h:selectManyCheckbox>
+
+         <!-- vai chamar o get e vai consultar no banco -->
+			<h:outputLabel value="Estados:" />
+			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}">
+              <f:selectItem  value="#{pessoaBean.estados}"/>
+			</h:selectOneMenu>
 
 			<h:outputLabel />
 			<h:panelGroup>

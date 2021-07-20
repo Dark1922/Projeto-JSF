@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -57,10 +58,6 @@ public class Pessoa implements Serializable {
 		this.nivelProgramador = nivelProgramador;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Temporal(TemporalType.DATE) // padrão de data que quer só a data
 	private Date dataNascimento;
 
@@ -81,6 +78,19 @@ public class Pessoa implements Serializable {
 	private String ibge;
 
 	private String gia;
+	
+	@Transient //n fica persistente  ou n grava no banco só fica em memória pra ajudar a prgm
+	private Estados estados;
+	
+	
+
+	public Estados getEstados() {
+		return estados;
+	}
+
+	public void setEstados(Estados estados) {
+		this.estados = estados;
+	}
 
 	public String getComplemento() {
 		return complemento;

@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ public class PessoaBean implements Serializable {
 	private Pessoa pessoa = new Pessoa();
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	private List<SelectItem> estados;
 
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl(); // ese
 
@@ -169,10 +171,10 @@ public class PessoaBean implements Serializable {
 		ExternalContext externalContext = context.getExternalContext();
 		externalContext.getSessionMap().remove("usuarioLogado"); // remove usuario logado
 
-		//onde tem o controle da sessão do usuário
-		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
-		 
+		// onde tem o controle da sessão do usuário
+		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+				.getExternalContext().getRequest();
+
 		httpServletRequest.getSession().invalidate();
 
 		return "index.jsf";
@@ -185,6 +187,24 @@ public class PessoaBean implements Serializable {
 
 		return pessoaUser.getPerfilUser().equals(acesso); // true ou false o equal retorna
 
+	}
+
+	public List<SelectItem> getEstados() {
+		estados = iDaoPessoa.listaEstados();
+		return estados;
+		// variavel estados vai consulta no banco e vai retorna pra tela
+	}
+
+	public IDaoPessoa getiDaoPessoa() {
+		return iDaoPessoa;
+	}
+
+	public void setiDaoPessoa(IDaoPessoa iDaoPessoa) {
+		this.iDaoPessoa = iDaoPessoa;
+	}
+
+	public void setEstados(List<SelectItem> estados) {
+		this.estados = estados;
 	}
 
 }

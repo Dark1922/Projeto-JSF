@@ -1,5 +1,6 @@
 package br.com.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,7 +9,10 @@ import javax.persistence.EntityTransaction;
 import br.com.entidades.Lancamento;
 import br.com.jpautil.JPAUtil;
 
-public class IDaoLancamentoImpl implements IDaoLacamento {
+public class IDaoLancamentoImpl implements IDaoLacamento, Serializable {
+
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public List<Lancamento> consultar(Long codUser) {
