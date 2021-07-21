@@ -9,8 +9,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.hibernate.service.spi.InjectService;
-
 import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
 import br.com.jpautil.JPAUtil;
@@ -18,7 +16,7 @@ import br.com.jpautil.JPAUtil;
 public class IDaoPessoaImpl implements IDaoPessoa, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private EntityManager entityManager = JPAUtil.getEntityManager();
 
@@ -47,7 +45,7 @@ public class IDaoPessoaImpl implements IDaoPessoa, Serializable {
 		// busca todos Estados
 		List<Estados> estados = entityManager.createQuery("from Estados").getResultList();
 
-		for (Estados estado : estados) { //manda o objeto estado inteiro e varre o nome
+		for (Estados estado : estados) { // manda o objeto estado inteiro e varre o nome
 			selectItems.add(new SelectItem(estado, estado.getNome()));
 		} // preencheu o for com a lista de estados
 

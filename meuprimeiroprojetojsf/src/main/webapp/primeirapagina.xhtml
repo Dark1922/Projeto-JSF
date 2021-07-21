@@ -241,6 +241,14 @@
 				<f:facet name="header">Idade</f:facet>
 				<h:outputText value="#{pessoa.idade}" />
 			</h:column>
+			
+			<h:column>	
+				<f:facet name="header">Avatar</f:facet>
+				<h:commandLink actionListener="#{pessoaBean.dowload}" title="Avatar" > 
+				<h:graphicImage width="50" height="50" value="#{pessoa.fotoIconBase64}"/>
+				<f:param name="fileDowloadId" value="#{pessoa.id}"/>
+				</h:commandLink>
+			</h:column> 
  
 			<h:column>
 				<f:facet name="header">Editar</f:facet>   

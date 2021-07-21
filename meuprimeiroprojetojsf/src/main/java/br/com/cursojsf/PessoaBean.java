@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -26,6 +27,7 @@ import javax.faces.model.SelectItem;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
 
@@ -86,21 +88,20 @@ public class PessoaBean implements Serializable {
 		BufferedImage resizedImage = new BufferedImage(largura, altura, type);
 		Graphics2D g = resizedImage.createGraphics();
 		g.drawImage(bufferedImage, 0, 0, altura, altura, null);
-        g.dispose();
-        
-        //Escrever novamente a imagem em tamanho menor
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        String extensao = arquivoFoto.getContentType().split("\\/")[1]; //imagem/png
-        ImageIO.write(resizedImage, extensao, baos);
-        
-        String miniImagem = "data:" + arquivoFoto.getContentType() + ";base64," + 
-                 DatatypeConverter.printBase64Binary(baos.toByteArray());
-        
-        //processa imagem
-        pessoa.setFotoIconBase64(miniImagem);
-        pessoa.setExtensao(extensao);
-        
-		
+		g.dispose();
+
+		// Escrever novamente a imagem em tamanho menor
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		String extensao = arquivoFoto.getContentType().split("\\/")[1]; // imagem/png
+		ImageIO.write(resizedImage, extensao, baos);
+
+		String miniImagem = "data:" + arquivoFoto.getContentType() + ";base64,"
+				+ DatatypeConverter.printBase64Binary(baos.toByteArray());
+
+		// processa imagem
+		pessoa.setFotoIconBase64(miniImagem);
+		pessoa.setExtensao(extensao);
+
 		pessoa = daoGeneric.updat(pessoa); // pode criar mais de um objeto sem dar erro
 		carregarPessoas();// método pra carregar a lista de pessoas
 		mostrarMsg("Cadastrado com sucesso!");
@@ -172,7 +173,7 @@ public class PessoaBean implements Serializable {
 			pessoa.setIbge(gsonAux.getIbge());
 			pessoa.setGia(gsonAux.getGia());
 
-			System.out.println(jsonCep);
+			// System.out.println(jsonCep);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -347,6 +348,24 @@ public class PessoaBean implements Serializable {
 			buf = bos.toByteArray();
 		}
 		return buf;
+	}
+
+	public void dowload() throws IOException {
+
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String fileDowloadId = params.get("fileDowloadId");
+        
+        //consutal os dados da pessoa
+        Pessoa pessoa = daoGeneric.consultar(Pessoa.class, fileDowloadId);
+        
+		HttpServletResponse  response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		
+		response.addHeader("Content-Disposition", "attachment; filename=dowload." + pessoa.getExtensao());
+		response.setContentType("application/octet-stream");
+		response.setContentLength(pessoa.getFotoIconBase64Original().length); //foto original
+		response.getOutputStream().write(pessoa.getFotoIconBase64Original());
+		response.getOutputStream().flush(); //confirma esse fluxo de dados
+		FacesContext.getCurrentInstance().responseComplete(); //resposta completa
 	}
 
 }
