@@ -3,10 +3,14 @@ package br.com.entidades;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,8 +47,66 @@ public class Pessoa implements Serializable {
 
 	private Integer[] linguagens; // integer pq vamos deixar pra receber em numeor as linguagem p;
 
+	@Temporal(TemporalType.DATE) // padrão de data que quer só a data
+	private Date dataNascimento;
+
+	private String cep;
+
+	private String logradouro;
+
+	private String complemento;
+
+	private String bairro;
+
+	private String localidade;
+
+	private String uf;
+
+	private String unidade;
+
+	private String ibge;
+
+	private String gia;
+
+	@Transient // n fica persistente ou n grava no banco só fica em memória pra ajudar a prgm
+	private Estados estados;
+
 	@ManyToOne
 	private Cidades cidades;
+	
+	@Column(columnDefinition = "text") //text do postgres que grava arquivos base 64 
+	private String fotoIconBase64; //imagem formato texto base64
+	
+	private String extensao; // vai gravar png jpg extensao
+	
+	@Lob //byte e array usa-se o lob usando para gravar arquivos no banco de dados
+	@Basic(fetch = FetchType.LAZY) //so vai ser chamado qnd for usar o atributo 64
+	private byte[] fotoIconBase64Original;
+	
+
+	public String getExtensao() {
+		return extensao;
+	}
+
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
+	}
+
+	public byte[] getFotoIconBase64Original() {
+		return fotoIconBase64Original;
+	}
+
+	public void setFotoIconBase64Original(byte[] fotoIconBase64Original) {
+		this.fotoIconBase64Original = fotoIconBase64Original;
+	}
+
+	public String getFotoIconBase64() {
+		return fotoIconBase64;
+	}
+
+	public void setFotoIconBase64(String fotoIconBase64) {
+		this.fotoIconBase64 = fotoIconBase64;
+	}
 
 	public Cidades getCidades() {
 		return cidades;
@@ -69,30 +131,6 @@ public class Pessoa implements Serializable {
 	public void setNivelProgramador(String nivelProgramador) {
 		this.nivelProgramador = nivelProgramador;
 	}
-
-	@Temporal(TemporalType.DATE) // padrão de data que quer só a data
-	private Date dataNascimento;
-
-	private String cep;
-
-	private String logradouro;
-
-	private String complemento;
-
-	private String bairro;
-
-	private String localidade;
-
-	private String uf;
-
-	private String unidade;
-
-	private String ibge;
-
-	private String gia;
-
-	@Transient // n fica persistente ou n grava no banco só fica em memória pra ajudar a prgm
-	private Estados estados;
 
 	public Estados getEstados() {
 		return estados;

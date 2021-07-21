@@ -267,5 +267,7 @@ public class PessoaBean implements Serializable {
 	public void setCidades(List<SelectItem> cidades) {
 		this.cidades = cidades;
 	}
+	
+	
 
 }
