@@ -25,7 +25,7 @@
 		style="text-align: center; color: green; font-size: 17px; list-style-type: none;" />
 
 	<h:form id="formPessoa" style="display:grid; justify-content: center;"
-		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
+		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" enctype="multipart/form-data">
 
 		<h:panelGrid columns="2" style="margin: 20px ">
 
@@ -131,6 +131,9 @@
 				validatorMessage="Nome tem que ter no minímo 6 caracteres / Máx 20">
 				<f:validateLength maximum="20" minimum="6" />
 			</h:inputSecret>
+			
+			<h:outputLabel value="Avatar:"/>
+			<h:inputFile id="foto" value="#{pessoaBean.arquivoFoto}"></h:inputFile>
 
 
 
@@ -240,7 +243,7 @@
 			</h:column>
  
 			<h:column>
-				<f:facet name="header">Editar</f:facet>
+				<f:facet name="header">Editar</f:facet>   
 				<h:commandLink action="#{pessoaBean.editar}"> 
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />

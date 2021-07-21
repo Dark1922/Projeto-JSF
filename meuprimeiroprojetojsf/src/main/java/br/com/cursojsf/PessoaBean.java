@@ -18,7 +18,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
@@ -41,11 +43,27 @@ public class PessoaBean implements Serializable {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private List<SelectItem> estados;
 	private List<SelectItem> cidades;
+    
+	@Inject
+	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl(); 
+	
+	@Inject
+    private JPAUtil jpaUtil;
+	
+	private Part arquivoFoto;
 
-	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl(); // ese
+	public Part getArquivoFoto() {
+		return arquivoFoto;
+	}
+
+	public void setArquivoFoto(Part arquivoFoto) {
+		this.arquivoFoto = arquivoFoto;
+	}
 
 	public String salvar() {
-
+         
+		
+		
 		pessoa = daoGeneric.updat(pessoa); // pode criar mais de um objeto sem dar erro
 		carregarPessoas();// método pra carregar a lista de pessoas
 		mostrarMsg("Cadastrado com sucesso!");
