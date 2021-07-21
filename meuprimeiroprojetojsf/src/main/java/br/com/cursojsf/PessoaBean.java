@@ -1,6 +1,9 @@
 package br.com.cursojsf;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -43,13 +46,13 @@ public class PessoaBean implements Serializable {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private List<SelectItem> estados;
 	private List<SelectItem> cidades;
-    
+
 	@Inject
-	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl(); 
-	
+	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
+
 	@Inject
-    private JPAUtil jpaUtil;
-	
+	private JPAUtil jpaUtil;
+
 	private Part arquivoFoto;
 
 	public Part getArquivoFoto() {
@@ -61,9 +64,7 @@ public class PessoaBean implements Serializable {
 	}
 
 	public String salvar() {
-         
-		
-		
+
 		pessoa = daoGeneric.updat(pessoa); // pode criar mais de um objeto sem dar erro
 		carregarPessoas();// método pra carregar a lista de pessoas
 		mostrarMsg("Cadastrado com sucesso!");
@@ -285,7 +286,31 @@ public class PessoaBean implements Serializable {
 	public void setCidades(List<SelectItem> cidades) {
 		this.cidades = cidades;
 	}
-	
-	
+
+	//Método que converte um inputStream para  array de byte
+	private byte[] getByte(InputStream is) throws IOException {
+
+		int len;
+		int size = 1024;
+		byte[] buf = null;
+
+		if (is instanceof ByteArrayInputStream) {
+
+			size = is.available();
+			buf = new byte[size];
+			len = is.read(buf, 0, size);
+
+		}else {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			buf = new byte[size];
+			
+			while((len = is.read(buf, 0, size)) != -1) {
+				
+				bos.write(buf,0, len);
+			} 
+			buf = bos.toByteArray();
+		}
+		return buf;
+	}
 
 }
