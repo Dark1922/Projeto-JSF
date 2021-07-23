@@ -8,7 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -44,9 +43,9 @@ import br.com.repository.IDaoPessoaImpl;
 
 @ViewScoped
 @ManagedBean(name = "pessoaBean")
-public class PessoaBean implements Serializable {
+public class PessoaBean  {
 
-	private static final long serialVersionUID = 1L;
+	
 
 	private Pessoa pessoa = new Pessoa();
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
@@ -86,9 +85,9 @@ public class PessoaBean implements Serializable {
 		int altura = 200;
 
 		// criar a miniatura
-		BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+		BufferedImage resizedImage = new BufferedImage(altura, altura, type);
 		Graphics2D g = resizedImage.createGraphics();
-		g.drawImage(bufferedImage, 0, 0, altura, altura, null);
+		g.drawImage(bufferedImage, 0, 0, largura, altura, null);
 		g.dispose();
 
 		// Escrever novamente a imagem em tamanho menor
@@ -108,7 +107,7 @@ public class PessoaBean implements Serializable {
 		mostrarMsg("Cadastrado com sucesso!");
 		return ""; // salva na msm página e retorna os dados pra gente como o merge pq tem o
 					// retorno de nossas entidade;
-	}
+	} 
 
 	private void mostrarMsg(String msg) {
 		// contexto do java servefacess
@@ -227,7 +226,7 @@ public class PessoaBean implements Serializable {
 			// para a primeira página
 
 			return "primeirapagina.jsf";
-		}
+		} 
 
 		return "index.jsf"; // se n efetuar o login com sucesso vai retorna pra página index
 	}

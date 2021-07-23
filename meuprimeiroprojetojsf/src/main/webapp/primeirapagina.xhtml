@@ -139,7 +139,7 @@
 
 			<h:outputLabel value="Perfil:" />
 			<h:selectOneMenu id="Perfil" value="#{pessoaBean.pessoa.perfilUser}"
-				required="true" requiredMessage="Informe o Perfil de usuário">
+				required="false" requiredMessage="Informe o Perfil de usuário">
 
 				<f:selectItem itemValue="NAO" itemLabel="Selecione"
 					noSelectionOption="true" />
@@ -171,19 +171,19 @@
 			<!-- vai chamar o get e vai consultar no banco -->
 			
 			<h:outputLabel value="Estados:" />
-			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" required="true"
-				immediate="true" id="comboEstado" converter="estadoConverter">
+			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" 
+				immediate="true" id="comboEstado" converter="estadoConverter" >
 				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-				<f:selectItems value="#{pessoaBean.estados}" />
+				<f:selectItems value="#{pessoaBean.estados}"  />
 				<f:ajax event="change" execute="@this"
 				 render="comboCidade" listener="#{pessoaBean.carregaCidades}" />
 			</h:selectOneMenu>
 
 			<h:outputLabel value="Cidades:" />
-			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" required="true"
+			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}"  
 				id="comboCidade" immediate="true" converter="cidadeConverter">
 				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-				<f:selectItems value="#{pessoaBean.cidades}" />
+				<f:selectItems value="#{pessoaBean.cidades}"/>
 			</h:selectOneMenu>
 
 			<h:outputLabel />
@@ -191,7 +191,7 @@
 				<h:commandButton id="botaoNovo"
 					style="margin-left: 6px; margin-top: 7px;" value="Novo"
 					action="#{pessoaBean.novo}" image="/resources/img/Novo (2).png"
-					title="Novo">
+					title="Novo" immediate="true">
 					<f:ajax execute="botaoNovo" render="@form" />
 				</h:commandButton>
 				<h:commandButton style="margin-left: 6px; margin-top: 7px;"
@@ -199,10 +199,10 @@
 					image="/resources/img/salvar.png" title="Salvar" />
 				<h:commandButton style="margin-left: 6px; margin-top: 7px;"
 					value="Remover" action="#{pessoaBean.remove}"
-					image="/resources/img/excluir.png" title="Excluir" />
+					image="/resources/img/excluir.png" title="Excluir"  immediate="true"/>
 				<h:commandButton style="margin-left: 6px; margin-top: 7px;"
 					value="Limpar" action="#{pessoaBean.limpar}" id="botaoResetar"
-					image="resources/img/power_reset_1847.png" title="Resetar">
+					image="resources/img/power_reset_1847.png" title="Resetar" immediate="true">
 					<f:ajax execute="botaoResetar" render="@form" />
 				</h:commandButton>
 			</h:panelGroup>

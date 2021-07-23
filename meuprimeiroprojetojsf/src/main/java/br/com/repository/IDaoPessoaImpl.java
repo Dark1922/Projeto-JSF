@@ -1,6 +1,5 @@
 package br.com.repository;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +12,9 @@ import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
 import br.com.jpautil.JPAUtil;
 
-public class IDaoPessoaImpl implements IDaoPessoa, Serializable {
+public class IDaoPessoaImpl implements IDaoPessoa {
 
-	private static final long serialVersionUID = 1L;
+	
 
 	@Inject
 	private EntityManager entityManager = JPAUtil.getEntityManager();
