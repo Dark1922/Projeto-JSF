@@ -17,7 +17,7 @@ public class Lancamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id // primary key
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private long id;
 
 	private String numeroNotaFiscal;
@@ -95,7 +95,5 @@ public class Lancamento implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	 
 }

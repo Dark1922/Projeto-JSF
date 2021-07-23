@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -145,9 +146,14 @@ public class PessoaBean implements Serializable {
 
 	public void pesquisaCep(AjaxBehaviorEvent event) {// tem que tar declarado aqui pro jsf entender o listener
 
-		try {// linkg do ibg que retorna um json pelo cep passado se ele for válido passando
-				// o cep que foi passado por parametro
-			URL url = new URL("https://viacep.com.br/ws/" + pessoa.getCep() + "/json/");// monta a url
+		try {
+            //oque tiver sendo enviado pela parte do html do cep vai está sendo enviado para o inputText e pegamos ele dai
+			//e passa ele pra buscar na url de acordo com oque o usuário escreveu
+			HtmlInputText inputText = (HtmlInputText) event.getSource(); //vai converter pra um input text html
+			
+			
+			// linkg do ibg que retorna um json pelo cep passado se ele for válido passando o cep que foi passado por parametro
+			URL url = new URL("https://viacep.com.br/ws/" + inputText.getValue() + "/json/");// monta a url
 			URLConnection connectionDaUrl = url.openConnection(); // abre a conexão
 			InputStream is = connectionDaUrl.getInputStream(); // vai executar ao lado do servidor e vai retornar os
 																// dados / retorno
