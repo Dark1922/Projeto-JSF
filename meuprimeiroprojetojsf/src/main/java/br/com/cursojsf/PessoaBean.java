@@ -43,9 +43,7 @@ import br.com.repository.IDaoPessoaImpl;
 
 @ViewScoped
 @ManagedBean(name = "pessoaBean")
-public class PessoaBean  {
-
-	
+public class PessoaBean {
 
 	private Pessoa pessoa = new Pessoa();
 	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
@@ -107,7 +105,7 @@ public class PessoaBean  {
 		mostrarMsg("Cadastrado com sucesso!");
 		return ""; // salva na msm página e retorna os dados pra gente como o merge pq tem o
 					// retorno de nossas entidade;
-	} 
+	}
 
 	private void mostrarMsg(String msg) {
 		// contexto do java servefacess
@@ -146,12 +144,13 @@ public class PessoaBean  {
 	public void pesquisaCep(AjaxBehaviorEvent event) {// tem que tar declarado aqui pro jsf entender o listener
 
 		try {
-            //oque tiver sendo enviado pela parte do html do cep vai está sendo enviado para o inputText e pegamos ele dai
-			//e passa ele pra buscar na url de acordo com oque o usuário escreveu
-			HtmlInputText inputText = (HtmlInputText) event.getSource(); //vai converter pra um input text html
-			
-			
-			// linkg do ibg que retorna um json pelo cep passado se ele for válido passando o cep que foi passado por parametro
+			// oque tiver sendo enviado pela parte do html do cep vai está sendo enviado
+			// para o inputText e pegamos ele dai
+			// e passa ele pra buscar na url de acordo com oque o usuário escreveu
+			HtmlInputText inputText = (HtmlInputText) event.getSource(); // vai converter pra um input text html
+
+			// linkg do ibg que retorna um json pelo cep passado se ele for válido passando
+			// o cep que foi passado por parametro
 			URL url = new URL("https://viacep.com.br/ws/" + inputText.getValue() + "/json/");// monta a url
 			URLConnection connectionDaUrl = url.openConnection(); // abre a conexão
 			InputStream is = connectionDaUrl.getInputStream(); // vai executar ao lado do servidor e vai retornar os
@@ -226,7 +225,7 @@ public class PessoaBean  {
 			// para a primeira página
 
 			return "primeirapagina.jsf";
-		} 
+		}
 
 		return "index.jsf"; // se n efetuar o login com sucesso vai retorna pra página index
 	}
@@ -255,12 +254,6 @@ public class PessoaBean  {
 
 	}
 
-	public List<SelectItem> getEstados() {
-		estados = iDaoPessoa.listaEstados();
-		return estados;
-		// variavel estados vai consulta no banco e vai retorna pra tela
-	}
-
 	public IDaoPessoa getiDaoPessoa() {
 		return iDaoPessoa;
 	}
@@ -271,6 +264,12 @@ public class PessoaBean  {
 
 	public void setEstados(List<SelectItem> estados) {
 		this.estados = estados;
+	}
+	
+	public List<SelectItem> getEstados() {
+		estados = iDaoPessoa.listaEstados();
+		return estados;
+		// variavel estados vai consulta no banco e vai retorna pra tela
 	}
 
 	public void carregaCidades(AjaxBehaviorEvent event) {// evento de ajax
@@ -358,19 +357,20 @@ public class PessoaBean  {
 	public void dowload() throws IOException {
 
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String fileDowloadId = params.get("fileDowloadId");
-        
-        //consutal os dados da pessoa
-        Pessoa pessoa = daoGeneric.consultar(Pessoa.class, fileDowloadId);
-        
-		HttpServletResponse  response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-		
+		String fileDowloadId = params.get("fileDowloadId");
+
+		// consutal os dados da pessoa
+		Pessoa pessoa = daoGeneric.consultar(Pessoa.class, fileDowloadId);
+
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
+				.getResponse();
+
 		response.addHeader("Content-Disposition", "attachment; filename=dowload." + pessoa.getExtensao());
 		response.setContentType("application/octet-stream");
-		response.setContentLength(pessoa.getFotoIconBase64Original().length); //foto original
+		response.setContentLength(pessoa.getFotoIconBase64Original().length); // foto original
 		response.getOutputStream().write(pessoa.getFotoIconBase64Original());
-		response.getOutputStream().flush(); //confirma esse fluxo de dados
-		FacesContext.getCurrentInstance().responseComplete(); //resposta completa
+		response.getOutputStream().flush(); // confirma esse fluxo de dados
+		FacesContext.getCurrentInstance().responseComplete(); // resposta completa
 	}
 
 }

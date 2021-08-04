@@ -83,8 +83,9 @@
 			<h:inputText value="#{pessoaBean.pessoa.cep}"
 				pt:placeholder="Informe um Cep Válido">
 				<f:ajax event="blur" execute="@this"
+					listener="#{pessoaBean.pesquisaCep}"
 					render="logradouro complemento bairro localidade"
-					listener="#{pessoaBean.pesquisaCep}" />
+					 />
 			</h:inputText>
 
 			<h:outputLabel value="Logadouro:" />
@@ -171,6 +172,7 @@
 			<!-- vai chamar o get e vai consultar no banco -->
 			
 			<h:outputLabel value="Estados:" />
+			
 			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" 
 				immediate="true" id="comboEstado" converter="estadoConverter" >
 				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
@@ -180,9 +182,10 @@
 			</h:selectOneMenu>
 
 			<h:outputLabel value="Cidades:" />
+			
 			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}"  
-				id="comboCidade" immediate="true" converter="cidadeConverter">
-				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+				 immediate="true" id="comboCidade" converter="cidadeConverter" >
+				<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
 				<f:selectItems value="#{pessoaBean.cidades}"/>
 			</h:selectOneMenu>
 
@@ -252,7 +255,7 @@
  
 			<h:column>
 				<f:facet name="header">Editar</f:facet>   
-				<h:commandLink action="#{pessoaBean.editar}"> 
+				<h:commandLink immediate="true" action="#{pessoaBean.editar}"> 
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
 					<h:graphicImage value="/resources/img/editar.png" title="Editar" />
@@ -262,7 +265,7 @@
 			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 				<f:facet name="header">Excluir</f:facet>
 
-				<h:commandLink action="#{pessoaBean.remove}">
+				<h:commandLink action="#{pessoaBean.remove}" immediate="true">
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />
 					<h:graphicImage value="/resources/img/excluir.png" title="Excluir" />

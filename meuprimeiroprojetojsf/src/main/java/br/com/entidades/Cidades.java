@@ -24,7 +24,6 @@ public class Cidades implements Serializable {
 
 	private String nome;
 
-	@JoinColumn(name = "estados_id", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "estados_fk"))
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	private Estados estados;
 
