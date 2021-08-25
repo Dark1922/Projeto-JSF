@@ -29,7 +29,7 @@
 				value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.format.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="none" /> 
 
 		</properties>
 	</persistence-unit>

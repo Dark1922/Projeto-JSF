@@ -67,6 +67,26 @@ public class Pessoa implements Serializable {
 	private String ibge;
 
 	private String gia;
+	
+	private Double cpf;
+	
+	private Double electoralTitle;
+
+	public Double getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(Double cpf) {
+		this.cpf = cpf;
+	}
+
+	public Double getElectoralTitle() {
+		return electoralTitle;
+	}
+
+	public void setElectoralTitle(Double electoralTitle) {
+		this.electoralTitle = electoralTitle;
+	}
 
 	@Transient // n fica persistente ou n grava no banco só fica em memória pra ajudar a prgm
 	private Estados estados;

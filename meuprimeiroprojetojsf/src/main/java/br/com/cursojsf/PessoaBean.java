@@ -68,43 +68,59 @@ public class PessoaBean {
 	}
 
 	public String salvar() throws IOException {
-
-		// processa imagem
-		byte[] imagemByte = getByte(arquivoFoto.getInputStream());
-		pessoa.setFotoIconBase64Original(imagemByte); // salva imagem original
-
-		// transformar em um bufferImage
-		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
-
-		// pega o tipo da imagem
-		int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
-
-		int largura = 200;
-		int altura = 200;
-
-		// criar a miniatura
-		BufferedImage resizedImage = new BufferedImage(altura, altura, type);
-		Graphics2D g = resizedImage.createGraphics();
-		g.drawImage(bufferedImage, 0, 0, largura, altura, null);
-		g.dispose();
-
-		// Escrever novamente a imagem em tamanho menor
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		String extensao = arquivoFoto.getContentType().split("\\/")[1]; // imagem/png
-		ImageIO.write(resizedImage, extensao, baos);
-
-		String miniImagem = "data:" + arquivoFoto.getContentType() + ";base64,"
-				+ DatatypeConverter.printBase64Binary(baos.toByteArray());
-
-		// processa imagem
-		pessoa.setFotoIconBase64(miniImagem);
-		pessoa.setExtensao(extensao);
+       try {
+		byte[] imagemByte = null;
+		if (arquivoFoto != null) {
+			imagemByte = getByte(arquivoFoto.getInputStream());				
+		}
+		if (imagemByte != null && imagemByte.length > 0) {
+			pessoa.setFotoIconBase64Original(imagemByte); /*Salva imagem original*/
+			
+			/*Transofmrar em bufferimage*/
+			BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+			
+			/*Descobrir o tipo da imagem*/
+			int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+			
+			int largura = 200;
+			int altura = 200;
+			
+			/*Criar a miniatura*/			
+			BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+			Graphics2D g = resizedImage.createGraphics();
+			g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+			g.dispose();
+			
+			/*Escrever novamente a imagem em tamanho menor*/
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			String extensao = arquivoFoto.getContentType().split("\\/")[1]; /* Exemplo: image/png*/
+			ImageIO.write(resizedImage, extensao, baos);
+			
+			String miniImagem = "data:" + arquivoFoto.getContentType() + ";base64," + 
+			DatatypeConverter.printBase64Binary(baos.toByteArray());		
+			// Processar Imagem
+			
+			pessoa.setFotoIconBase64(miniImagem);
+			pessoa.setExtensao(extensao);
+		}
 
 		pessoa = daoGeneric.updat(pessoa); // pode criar mais de um objeto sem dar erro
-		carregarPessoas();// método pra carregar a lista de pessoas
+         
+		if(pessoa != null) {
+			carregarPessoas();
+			pessoa = new Pessoa();
 		mostrarMsg("Cadastrado com sucesso!");
-		return ""; // salva na msm página e retorna os dados pra gente como o merge pq tem o
-					// retorno de nossas entidade;
+		
+		}else {
+			mostrarMsg("Erro ao Cadastrar!");
+		}
+					
+		
+       }catch(Exception e) {
+    	   e.printStackTrace();
+       }
+       // retorno de nossas entidade;
+       return ""; // salva na msm página e retorna os dados pra gente como o merge pq tem o
 	}
 
 	private void mostrarMsg(String msg) {
